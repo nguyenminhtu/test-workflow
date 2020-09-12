@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Button from "react-bootstrap/Button";
 import Pagination from "react-bootstrap/Pagination";
@@ -13,6 +13,7 @@ const Wrapper = styled.div`
   th,
   td {
     text-align: center;
+    vertical-align: middle;
   }
 `;
 
@@ -80,8 +81,6 @@ const mockData = [
 ];
 
 export default function List() {
-  const history = useHistory();
-
   return (
     <Layout title="Danh sách học viên">
       <hr />
@@ -101,22 +100,23 @@ export default function List() {
               <th>Họ tên</th>
               <th>Email</th>
               <th>Số điện thoại</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             {mockData.map(data => (
-              <tr
-                key={data.id}
-                onClick={() =>
-                  history.push(
-                    `/detail?name=${data.name}&email=${data.email}&phone=${data.phone}`
-                  )
-                }
-              >
+              <tr key={data.id}>
                 <td>{data.id}</td>
                 <td>{data.name}</td>
                 <td>{data.email}</td>
                 <td>{data.phone}</td>
+                <td>
+                  <Link
+                    to={`/detail?name=${data.name}&email=${data.email}&phone=${data.phone}`}
+                  >
+                    <Button>Xem chi tiết</Button>
+                  </Link>
+                </td>
               </tr>
             ))}
           </tbody>
